@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 class BoardBase(BaseModel):
     name: str = Field(..., min_length=1, max_length=200)
     description: Optional[str] = None
-    is_default: bool = False
+    is_default: int = Field(default=0, ge=0, le=1)  # 0=not default, 1=default
 
 
 class BoardCreate(BoardBase):
@@ -17,7 +17,7 @@ class BoardCreate(BoardBase):
 class BoardUpdate(BaseModel):
     name: Optional[str] = Field(None, min_length=1, max_length=200)
     description: Optional[str] = None
-    is_default: Optional[bool] = None
+    is_default: Optional[int] = Field(None, ge=0, le=1)
 
 
 class Board(BoardBase):
