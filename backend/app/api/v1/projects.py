@@ -7,9 +7,9 @@ from ...models.user import User as UserModel
 from ...models.organization import Organization as OrgModel, OrganizationMember
 from ...models.project import Project as ProjectModel, ProjectMember
 from ...schemas.project import Project, ProjectCreate, ProjectUpdate
-from ...utils.auth import get_current_user
+from ...dependencies import get_current_user
 
-router = APIRouter(prefix="/projects", tags=["projects"])
+router = APIRouter()
 
 
 @router.get("/", response_model=List[Project])

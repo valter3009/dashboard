@@ -4,8 +4,7 @@ from typing import List
 
 from ...database import get_db
 from ...models.user import User as UserModel
-from ...models.board import Board as BoardModel
-from ...models.column import Column as ColumnModel
+from ...models.board import Board as BoardModel, Column as ColumnModel
 from ...models.project import Project as ProjectModel, ProjectMember
 from ...schemas.board import (
     Board,
@@ -16,9 +15,9 @@ from ...schemas.board import (
     ColumnCreate,
     ColumnUpdate,
 )
-from ...utils.auth import get_current_user
+from ...dependencies import get_current_user
 
-router = APIRouter(prefix="/boards", tags=["boards"])
+router = APIRouter()
 
 
 def check_project_access(project_id: int, user: UserModel, db: Session) -> ProjectModel:

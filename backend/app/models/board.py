@@ -1,6 +1,6 @@
 """Board and Column models for Kanban"""
 
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
+from sqlalchemy import Column as SQLColumn, Integer, String, Text, DateTime, ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 
@@ -12,13 +12,14 @@ class Board(Base):
 
     __tablename__ = "boards"
 
-    id = Column(Integer, primary_key=True, index=True)
-    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"), nullable=False)
-    name = Column(String(255), nullable=False)
-    description = Column(Text)
-    position = Column(Integer, default=0)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    id = SQLColumn(Integer, primary_key=True, index=True)
+    project_id = SQLColumn(Integer, ForeignKey("projects.id", ondelete="CASCADE"), nullable=False)
+    name = SQLColumn(String(255), nullable=False)
+    description = SQLColumn(Text)
+    is_default = SQLColumn(Integer, default=0)  # Boolean: 1=default, 0=not default
+    position = SQLColumn(Integer, default=0)
+    created_at = SQLColumn(DateTime(timezone=True), server_default=func.now())
+    updated_at = SQLColumn(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     # Relationships
     project = relationship("Project", back_populates="boards")
@@ -34,13 +35,13 @@ class Column(Base):
 
     __tablename__ = "columns"
 
-    id = Column(Integer, primary_key=True, index=True)
-    board_id = Column(Integer, ForeignKey("boards.id", ondelete="CASCADE"), nullable=False)
-    name = Column(String(100), nullable=False)
-    position = Column(Integer, nullable=False)
-    wip_limit = Column(Integer)  # Work In Progress limit
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    id = SQLColumn(Integer, primary_key=True, index=True)
+    board_id = SQLColumn(Integer, ForeignKey("boards.id", ondelete="CASCADE"), nullable=False)
+    name = SQLColumn(String(100), nullable=False)
+    position = SQLColumn(Integer, nullable=False)
+    wip_limit = SQLColumn(Integer)  # Work In Progress limit
+    created_at = SQLColumn(DateTime(timezone=True), server_default=func.now())
+    updated_at = SQLColumn(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     # Relationships
     board = relationship("Board", back_populates="columns")
