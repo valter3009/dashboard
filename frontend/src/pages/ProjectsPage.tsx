@@ -12,6 +12,7 @@ import { formatDate } from '../lib/utils'
 export default function ProjectsPage() {
   const navigate = useNavigate()
   const [showCreateForm, setShowCreateForm] = useState(false)
+  const [error, setError] = useState('')
   const [formData, setFormData] = useState({
     name: '',
     key: '',
@@ -36,17 +37,23 @@ export default function ProjectsPage() {
       queryClient.invalidateQueries({ queryKey: ['projects'] })
       setShowCreateForm(false)
       setFormData({ name: '', key: '', description: '' })
+      setError('')
+    },
+    onError: (err: any) => {
+      setError(err.response?.data?.detail || 'Не удалось создать проект')
     },
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (organizations && organizations.length > 0) {
-      createProjectMutation.mutate({
-        ...formData,
-        organization_id: organizations[0].id,
-      })
+    if (!organizations || organizations.length === 0) {
+      alert('Ошибка: У вас нет организации. Пожалуйста, обратитесь к администратору.')
+      return
     }
+    createProjectMutation.mutate({
+      ...formData,
+      organization_id: organizations[0].id,
+    })
   }
 
   if (isLoading) {
@@ -74,6 +81,11 @@ export default function ProjectsPage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                  {error}
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="name">Название проекта</Label>

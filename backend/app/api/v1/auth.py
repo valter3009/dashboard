@@ -8,6 +8,7 @@ from datetime import timedelta
 from app.database import get_db
 from app.schemas.user import UserCreate, User, Token, UserLogin
 from app.models.user import User as UserModel
+from app.models.organization import Organization as OrgModel, OrganizationMember
 from app.utils.security import (
     verify_password,
     get_password_hash,
@@ -61,6 +62,26 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
+
+    # Auto-create default organization for new user
+    org_name = f"{user_data.username}'s Organization" if user_data.username else f"{user_data.email}'s Organization"
+    default_org = OrgModel(
+        name=org_name,
+        description="Default organization",
+        owner_id=db_user.id,
+    )
+    db.add(default_org)
+    db.commit()
+    db.refresh(default_org)
+
+    # Add user as organization admin
+    org_member = OrganizationMember(
+        organization_id=default_org.id,
+        user_id=db_user.id,
+        role="admin"
+    )
+    db.add(org_member)
+    db.commit()
 
     return db_user
 
