@@ -17,7 +17,7 @@ from ...schemas.board import (
 )
 from ...dependencies import get_current_user
 
-router = APIRouter(prefix="/boards", tags=["boards"])
+router = APIRouter()
 
 
 def check_project_access(project_id: int, user: UserModel, db: Session) -> ProjectModel:
