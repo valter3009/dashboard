@@ -10,9 +10,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import { authApi } from '../api/auth'
 
 const registerSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  username: z.string().min(3, 'Username must be at least 3 characters'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
+  email: z.string().email('Неверный формат email'),
+  username: z.string().min(3, 'Имя пользователя должно содержать минимум 3 символа'),
+  password: z.string().min(8, 'Пароль должен содержать минимум 8 символов'),
   first_name: z.string().optional(),
   last_name: z.string().optional(),
 })
@@ -38,9 +38,9 @@ export default function RegisterPage() {
       setError('')
 
       await authApi.register(data)
-      navigate('/login', { state: { message: 'Account created! Please sign in.' } })
+      navigate('/login', { state: { message: 'Аккаунт создан! Войдите в систему.' } })
     } catch (err: any) {
-      setError(err.response?.data?.detail || 'Failed to register. Please try again.')
+      setError(err.response?.data?.detail || 'Ошибка регистрации. Попробуйте снова.')
     } finally {
       setIsLoading(false)
     }
@@ -50,9 +50,9 @@ export default function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Create an account</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">Создать аккаунт</CardTitle>
           <CardDescription className="text-center">
-            Enter your information to get started
+            Введите ваши данные для начала работы
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -65,19 +65,19 @@ export default function RegisterPage() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="first_name">First name</Label>
+                <Label htmlFor="first_name">Имя</Label>
                 <Input
                   id="first_name"
-                  placeholder="John"
+                  placeholder="Иван"
                   {...register('first_name')}
                   disabled={isLoading}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="last_name">Last name</Label>
+                <Label htmlFor="last_name">Фамилия</Label>
                 <Input
                   id="last_name"
-                  placeholder="Doe"
+                  placeholder="Иванов"
                   {...register('last_name')}
                   disabled={isLoading}
                 />
@@ -89,7 +89,7 @@ export default function RegisterPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="name@example.com"
+                placeholder="имя@example.com"
                 {...register('email')}
                 disabled={isLoading}
               />
@@ -99,10 +99,10 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username">Имя пользователя</Label>
               <Input
                 id="username"
-                placeholder="johndoe"
+                placeholder="ivan_ivanov"
                 {...register('username')}
                 disabled={isLoading}
               />
@@ -112,11 +112,11 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Пароль</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Create a password"
+                placeholder="Создайте пароль"
                 {...register('password')}
                 disabled={isLoading}
               />
@@ -126,13 +126,13 @@ export default function RegisterPage() {
             </div>
 
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Creating account...' : 'Create account'}
+              {isLoading ? 'Создание аккаунта...' : 'Создать аккаунт'}
             </Button>
 
             <div className="text-center text-sm">
-              Already have an account?{' '}
+              Уже есть аккаунт?{' '}
               <Link to="/login" className="text-primary hover:underline">
-                Sign in
+                Войти
               </Link>
             </div>
           </form>

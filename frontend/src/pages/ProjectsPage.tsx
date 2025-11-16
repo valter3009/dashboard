@@ -48,46 +48,46 @@ export default function ProjectsPage() {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>Загрузка...</div>
   }
 
   return (
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Projects</h1>
-          <p className="text-gray-500 mt-2">Manage your projects and teams</p>
+          <h1 className="text-3xl font-bold">Проекты</h1>
+          <p className="text-gray-500 mt-2">Управляйте вашими проектами и командами</p>
         </div>
         <Button onClick={() => setShowCreateForm(!showCreateForm)}>
           <Plus className="h-4 w-4 mr-2" />
-          New Project
+          Новый проект
         </Button>
       </div>
 
       {showCreateForm && (
         <Card>
           <CardHeader>
-            <CardTitle>Create New Project</CardTitle>
-            <CardDescription>Add a new project to your workspace</CardDescription>
+            <CardTitle>Создать новый проект</CardTitle>
+            <CardDescription>Добавьте новый проект в рабочее пространство</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Project Name</Label>
+                  <Label htmlFor="name">Название проекта</Label>
                   <Input
                     id="name"
-                    placeholder="My Awesome Project"
+                    placeholder="Мой проект"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="key">Project Key</Label>
+                  <Label htmlFor="key">Ключ проекта</Label>
                   <Input
                     id="key"
-                    placeholder="MAP"
+                    placeholder="МП"
                     value={formData.key}
                     onChange={(e) =>
                       setFormData({ ...formData, key: e.target.value.toUpperCase() })
@@ -98,24 +98,24 @@ export default function ProjectsPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">Описание</Label>
                 <Input
                   id="description"
-                  placeholder="Project description"
+                  placeholder="Описание проекта"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 />
               </div>
               <div className="flex space-x-2">
                 <Button type="submit" disabled={createProjectMutation.isPending}>
-                  {createProjectMutation.isPending ? 'Creating...' : 'Create Project'}
+                  {createProjectMutation.isPending ? 'Создание...' : 'Создать проект'}
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setShowCreateForm(false)}
                 >
-                  Cancel
+                  Отмена
                 </Button>
               </div>
             </form>
@@ -141,10 +141,10 @@ export default function ProjectsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600 line-clamp-2">
-                  {project.description || 'No description'}
+                  {project.description || 'Нет описания'}
                 </p>
                 <p className="text-xs text-gray-400 mt-2">
-                  Created {formatDate(project.created_at)}
+                  Создан {formatDate(project.created_at)}
                 </p>
               </CardContent>
             </Card>
@@ -152,9 +152,9 @@ export default function ProjectsPage() {
         ) : (
           <Card className="col-span-full">
             <CardContent className="flex flex-col items-center justify-center py-12">
-              <h3 className="text-lg font-medium text-gray-900">No projects yet</h3>
+              <h3 className="text-lg font-medium text-gray-900">Пока нет проектов</h3>
               <p className="text-sm text-gray-500 mt-2">
-                Get started by creating your first project
+                Начните с создания вашего первого проекта
               </p>
             </CardContent>
           </Card>

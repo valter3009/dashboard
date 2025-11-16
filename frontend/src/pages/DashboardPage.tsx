@@ -22,9 +22,9 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold">Dashboard</h1>
+        <h1 className="text-3xl font-bold">Панель управления</h1>
         <p className="text-gray-500 mt-2">
-          Welcome back, {user?.first_name || user?.username}!
+          С возвращением, {user?.first_name || user?.username}!
         </p>
       </div>
 
@@ -32,45 +32,45 @@ export default function DashboardPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Projects</CardTitle>
+            <CardTitle className="text-sm font-medium">Всего проектов</CardTitle>
             <FolderKanban className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">No projects yet</p>
+            <p className="text-xs text-muted-foreground">Пока нет проектов</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Tasks</CardTitle>
+            <CardTitle className="text-sm font-medium">Активные задачи</CardTitle>
             <CheckSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">Assigned to you</p>
+            <p className="text-xs text-muted-foreground">Назначено вам</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Completed</CardTitle>
+            <CardTitle className="text-sm font-medium">Завершено</CardTitle>
             <CheckSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">This week</p>
+            <p className="text-xs text-muted-foreground">На этой неделе</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Time Tracked</CardTitle>
+            <CardTitle className="text-sm font-medium">Отслежено времени</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0h</div>
-            <p className="text-xs text-muted-foreground">This week</p>
+            <div className="text-2xl font-bold">0ч</div>
+            <p className="text-xs text-muted-foreground">На этой неделе</p>
           </CardContent>
         </Card>
       </div>
@@ -78,8 +78,8 @@ export default function DashboardPage() {
       {/* Getting Started */}
       <Card>
         <CardHeader>
-          <CardTitle>Getting Started</CardTitle>
-          <CardDescription>Start managing your projects effectively</CardDescription>
+          <CardTitle>Начало работы</CardTitle>
+          <CardDescription>Начните эффективно управлять проектами</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-start space-x-4">
@@ -87,9 +87,9 @@ export default function DashboardPage() {
               <FolderKanban className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h3 className="font-medium">Create your first project</h3>
+              <h3 className="font-medium">Создайте первый проект</h3>
               <p className="text-sm text-gray-500">
-                Go to Projects page and create a new project to get started
+                Перейдите на страницу Проекты и создайте новый проект
               </p>
             </div>
           </div>
@@ -98,9 +98,9 @@ export default function DashboardPage() {
               <LayoutDashboard className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h3 className="font-medium">Set up your board</h3>
+              <h3 className="font-medium">Настройте доску</h3>
               <p className="text-sm text-gray-500">
-                Create columns and organize your workflow
+                Создайте колонки и организуйте рабочий процесс
               </p>
             </div>
           </div>
@@ -109,9 +109,9 @@ export default function DashboardPage() {
               <CheckSquare className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h3 className="font-medium">Add tasks</h3>
+              <h3 className="font-medium">Добавьте задачи</h3>
               <p className="text-sm text-gray-500">
-                Start adding tasks and assign them to team members
+                Начните добавлять задачи и назначайте их членам команды
               </p>
             </div>
           </div>

@@ -11,8 +11,8 @@ import { authApi } from '../api/auth'
 import { useAuthStore } from '../store/authStore'
 
 const loginSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  email: z.string().email('Неверный формат email'),
+  password: z.string().min(6, 'Пароль должен содержать минимум 6 символов'),
 })
 
 type LoginFormData = z.infer<typeof loginSchema>
@@ -44,7 +44,7 @@ export default function LoginPage() {
 
       navigate('/dashboard')
     } catch (err: any) {
-      setError(err.response?.data?.detail || 'Failed to login. Please try again.')
+      setError(err.response?.data?.detail || 'Ошибка входа. Попробуйте снова.')
     } finally {
       setIsLoading(false)
     }
@@ -54,9 +54,9 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Welcome back</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">Добро пожаловать</CardTitle>
           <CardDescription className="text-center">
-            Enter your email and password to sign in
+            Введите email и пароль для входа
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -72,7 +72,7 @@ export default function LoginPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="name@example.com"
+                placeholder="имя@example.com"
                 {...register('email')}
                 disabled={isLoading}
               />
@@ -82,11 +82,11 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Пароль</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Введите пароль"
                 {...register('password')}
                 disabled={isLoading}
               />
@@ -96,13 +96,13 @@ export default function LoginPage() {
             </div>
 
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Signing in...' : 'Sign in'}
+              {isLoading ? 'Вход...' : 'Войти'}
             </Button>
 
             <div className="text-center text-sm">
-              Don't have an account?{' '}
+              Нет аккаунта?{' '}
               <Link to="/register" className="text-primary hover:underline">
-                Sign up
+                Зарегистрироваться
               </Link>
             </div>
           </form>

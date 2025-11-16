@@ -19,7 +19,7 @@ export default function Layout() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-bold text-primary">Project Management</h1>
+              <h1 className="text-xl font-bold text-primary">Управление проектами</h1>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-700">
@@ -27,7 +27,7 @@ export default function Layout() {
               </span>
               <Button onClick={handleLogout} variant="ghost" size="sm">
                 <LogOut className="h-4 w-4 mr-2" />
-                Logout
+                Выйти
               </Button>
             </div>
           </div>
@@ -43,14 +43,14 @@ export default function Layout() {
               className="flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900"
             >
               <LayoutDashboard className="h-5 w-5" />
-              <span>Dashboard</span>
+              <span>Панель управления</span>
             </Link>
             <Link
               to="/projects"
               className="flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900"
             >
               <FolderKanban className="h-5 w-5" />
-              <span>Projects</span>
+              <span>Проекты</span>
             </Link>
           </nav>
         </aside>
