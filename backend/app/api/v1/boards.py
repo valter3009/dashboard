@@ -16,7 +16,7 @@ from ...schemas.board import (
     ColumnCreate,
     ColumnUpdate,
 )
-from ...utils.auth import get_current_user
+from ...dependencies import get_current_user
 
 router = APIRouter(prefix="/boards", tags=["boards"])
 
