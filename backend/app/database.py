@@ -7,14 +7,26 @@ from typing import Generator
 
 from app.config import settings
 
-# Create SQLAlchemy engine
-engine = create_engine(
-    settings.DATABASE_URL,
-    pool_pre_ping=True,
-    pool_size=10,
-    max_overflow=20,
-    echo=settings.DEBUG
-)
+# Determine if we're using SQLite
+is_sqlite = settings.DATABASE_URL.startswith("sqlite")
+
+# Create SQLAlchemy engine with appropriate settings
+if is_sqlite:
+    # SQLite specific settings
+    engine = create_engine(
+        settings.DATABASE_URL,
+        connect_args={"check_same_thread": False},  # Required for SQLite
+        echo=settings.DEBUG
+    )
+else:
+    # PostgreSQL settings
+    engine = create_engine(
+        settings.DATABASE_URL,
+        pool_pre_ping=True,
+        pool_size=10,
+        max_overflow=20,
+        echo=settings.DEBUG
+    )
 
 # Create SessionLocal class
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
