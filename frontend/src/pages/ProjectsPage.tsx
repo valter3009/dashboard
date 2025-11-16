@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Plus } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Plus, Kanban } from 'lucide-react'
 import { Button } from '../components/ui/Button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/Card'
 import { Input } from '../components/ui/Input'
@@ -9,6 +10,7 @@ import { projectsApi } from '../api/projects'
 import { formatDate } from '../lib/utils'
 
 export default function ProjectsPage() {
+  const navigate = useNavigate()
   const [showCreateForm, setShowCreateForm] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
@@ -139,13 +141,22 @@ export default function ProjectsPage() {
                   </span>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-3">
                 <p className="text-sm text-gray-600 line-clamp-2">
                   {project.description || 'Нет описания'}
                 </p>
-                <p className="text-xs text-gray-400 mt-2">
+                <p className="text-xs text-gray-400">
                   Создан {formatDate(project.created_at)}
                 </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full mt-2"
+                  onClick={() => navigate(`/projects/${project.id}/boards`)}
+                >
+                  <Kanban className="h-4 w-4 mr-2" />
+                  Открыть доски
+                </Button>
               </CardContent>
             </Card>
           ))

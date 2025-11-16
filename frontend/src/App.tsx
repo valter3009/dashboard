@@ -4,6 +4,8 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import ProjectsPage from './pages/ProjectsPage'
+import BoardsPage from './pages/BoardsPage'
+import BoardViewPage from './pages/BoardViewPage'
 import Layout from './components/layout/Layout'
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
@@ -47,6 +49,8 @@ function App() {
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="projects" element={<ProjectsPage />} />
+          <Route path="projects/:projectId/boards" element={<BoardsPage />} />
+          <Route path="boards/:boardId" element={<BoardViewPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
