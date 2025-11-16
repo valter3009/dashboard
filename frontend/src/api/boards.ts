@@ -40,40 +40,40 @@ export interface ColumnCreate {
 
 export const boardsApi = {
   getProjectBoards: async (projectId: number): Promise<Board[]> => {
-    const response = await apiClient.get(`/api/v1/boards/project/${projectId}`)
+    const response = await apiClient.get(`/boards/project/${projectId}`)
     return response.data
   },
 
   getBoard: async (boardId: number): Promise<BoardWithColumns> => {
-    const response = await apiClient.get(`/api/v1/boards/${boardId}`)
+    const response = await apiClient.get(`/boards/${boardId}`)
     return response.data
   },
 
   createBoard: async (data: BoardCreate): Promise<Board> => {
-    const response = await apiClient.post('/api/v1/boards/', data)
+    const response = await apiClient.post('/boards/', data)
     return response.data
   },
 
   updateBoard: async (boardId: number, data: Partial<Board>): Promise<Board> => {
-    const response = await apiClient.patch(`/api/v1/boards/${boardId}`, data)
+    const response = await apiClient.patch(`/boards/${boardId}`, data)
     return response.data
   },
 
   deleteBoard: async (boardId: number): Promise<void> => {
-    await apiClient.delete(`/api/v1/boards/${boardId}`)
+    await apiClient.delete(`/boards/${boardId}`)
   },
 
   createColumn: async (data: ColumnCreate): Promise<Column> => {
-    const response = await apiClient.post('/api/v1/boards/columns', data)
+    const response = await apiClient.post('/boards/columns', data)
     return response.data
   },
 
   updateColumn: async (columnId: number, data: Partial<Column>): Promise<Column> => {
-    const response = await apiClient.patch(`/api/v1/boards/columns/${columnId}`, data)
+    const response = await apiClient.patch(`/boards/columns/${columnId}`, data)
     return response.data
   },
 
   deleteColumn: async (columnId: number): Promise<void> => {
-    await apiClient.delete(`/api/v1/boards/columns/${columnId}`)
+    await apiClient.delete(`/boards/columns/${columnId}`)
   },
 }
