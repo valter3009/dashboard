@@ -40,7 +40,15 @@ export default function ProjectsPage() {
       setError('')
     },
     onError: (err: any) => {
-      setError(err.response?.data?.detail || 'Не удалось создать проект')
+      // Handle validation errors
+      const detail = err.response?.data?.detail
+      if (Array.isArray(detail)) {
+        // FastAPI validation errors are arrays
+        const messages = detail.map((e: any) => `${e.loc[1]}: ${e.msg}`).join(', ')
+        setError(messages)
+      } else {
+        setError(detail || 'Не удалось создать проект')
+      }
     },
   })
 
@@ -107,8 +115,14 @@ export default function ProjectsPage() {
                       setFormData({ ...formData, key: e.target.value.toUpperCase() })
                     }
                     required
+                    minLength={2}
                     maxLength={10}
+                    pattern="[A-Z][A-Z0-9]*"
+                    title="Ключ должен начинаться с буквы и содержать только заглавные буквы и цифры (2-10 символов)"
                   />
+                  <p className="text-xs text-gray-500">
+                    2-10 символов, только заглавные буквы и цифры, начинается с буквы
+                  </p>
                 </div>
               </div>
               <div className="space-y-2">
