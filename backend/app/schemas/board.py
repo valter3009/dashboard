@@ -1,72 +1,62 @@
-"""Board and Column schemas"""
-
-from pydantic import BaseModel, Field, ConfigDict
-from typing import Optional, List
+from typing import Optional
 from datetime import datetime
+from pydantic import BaseModel, Field
 
 
+# Board schemas
 class BoardBase(BaseModel):
-    """Base board schema"""
-    name: str = Field(..., min_length=1, max_length=255)
+    name: str = Field(..., min_length=1, max_length=200)
     description: Optional[str] = None
+    is_default: bool = False
 
 
 class BoardCreate(BoardBase):
-    """Schema for creating a board"""
     project_id: int
-    position: int = 0
 
 
 class BoardUpdate(BaseModel):
-    """Schema for updating a board"""
-    name: Optional[str] = Field(None, min_length=1, max_length=255)
+    name: Optional[str] = Field(None, min_length=1, max_length=200)
     description: Optional[str] = None
-    position: Optional[int] = None
+    is_default: Optional[bool] = None
 
 
 class Board(BoardBase):
-    """Board response schema"""
     id: int
     project_id: int
-    position: int
     created_at: datetime
     updated_at: datetime
 
-    model_config = ConfigDict(from_attributes=True)
+    class Config:
+        from_attributes = True
 
 
+# Column schemas
 class ColumnBase(BaseModel):
-    """Base column schema"""
     name: str = Field(..., min_length=1, max_length=100)
-    position: int
+    position: int = Field(ge=0)
+    wip_limit: Optional[int] = Field(None, ge=0)
 
 
 class ColumnCreate(ColumnBase):
-    """Schema for creating a column"""
     board_id: int
-    wip_limit: Optional[int] = None
 
 
 class ColumnUpdate(BaseModel):
-    """Schema for updating a column"""
     name: Optional[str] = Field(None, min_length=1, max_length=100)
-    position: Optional[int] = None
-    wip_limit: Optional[int] = None
+    position: Optional[int] = Field(None, ge=0)
+    wip_limit: Optional[int] = Field(None, ge=0)
 
 
 class Column(ColumnBase):
-    """Column response schema"""
     id: int
     board_id: int
-    wip_limit: Optional[int] = None
     created_at: datetime
     updated_at: datetime
 
-    model_config = ConfigDict(from_attributes=True)
+    class Config:
+        from_attributes = True
 
 
+# Board with columns
 class BoardWithColumns(Board):
-    """Board with columns list"""
-    columns: List[Column] = []
-
-    model_config = ConfigDict(from_attributes=True)
+    columns: list[Column] = []
