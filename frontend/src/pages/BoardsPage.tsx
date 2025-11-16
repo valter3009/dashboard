@@ -14,6 +14,7 @@ export default function BoardsPage() {
   const queryClient = useQueryClient()
   
   const [showCreateForm, setShowCreateForm] = useState(false)
+  const [error, setError] = useState('')
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -31,6 +32,18 @@ export default function BoardsPage() {
       queryClient.invalidateQueries({ queryKey: ['boards', projectId] })
       setShowCreateForm(false)
       setFormData({ name: '', description: '' })
+      setError('')
+    },
+    onError: (err: any) => {
+      // Handle validation errors
+      const detail = err.response?.data?.detail
+      if (Array.isArray(detail)) {
+        // FastAPI validation errors are arrays
+        const messages = detail.map((e: any) => `${e.loc[1]}: ${e.msg}`).join(', ')
+        setError(messages)
+      } else {
+        setError(detail || 'Не удалось создать доску')
+      }
     },
   })
 
@@ -82,6 +95,11 @@ export default function BoardsPage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                  {error}
+                </div>
+              )}
               <div className="space-y-2">
                 <Label htmlFor="name">Название доски</Label>
                 <Input
