@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card'
 import { Input } from '../components/ui/Input'
 import { Label } from '../components/ui/Label'
 import { boardsApi } from '../api/boards'
-import { tasksApi, Task, TaskCreate } from '../api/tasks'
+import { tasksApi, Task } from '../api/tasks'
 
 export default function BoardViewPage() {
   const { boardId } = useParams<{ boardId: string }>()
